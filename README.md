@@ -93,3 +93,36 @@ If it still does not open, Windows Firewall may be blocking port `5173` or `3210
 The current owner login is a simple Convex-backed starter auth flow using hashed passwords and session IDs. For a production system, replace it with Convex Auth, Clerk, or another full authentication provider before handling real student data.
 
 The build will fail until `npx.cmd convex dev` has generated `convex/_generated/api`. That is expected for a fresh Convex project.
+
+## Deploy To GitHub Pages
+
+This project is hosted under:
+
+```text
+https://kollebharathteja.github.io/DRS/
+```
+
+Because the site is inside the `/DRS/` path, Vite must build assets with `/DRS/` as the base path. `vite.config.js` already handles this for production builds.
+
+Before deploying, create a production environment file or GitHub Pages build secret with your Convex cloud URL:
+
+```text
+VITE_CONVEX_URL=https://your-convex-cloud-deployment.convex.cloud
+VITE_PUBLIC_APP_URL=https://kollebharathteja.github.io/DRS
+```
+
+Do not use this in production:
+
+```text
+VITE_CONVEX_URL=http://192.168.55.104:3210
+```
+
+That address only works on your local Wi-Fi.
+
+Build and deploy the `dist` folder:
+
+```powershell
+npm.cmd run build
+```
+
+Then publish the generated `dist` folder to GitHub Pages.
