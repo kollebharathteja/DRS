@@ -7,7 +7,7 @@
     "dev": "vite",
     "convex": "convex dev",
     "dev:full": "concurrently \"npm run convex\" \"npm run dev\"",
-    "build": "vite build",
+    "build": "node scripts/prepare-build.cjs && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
