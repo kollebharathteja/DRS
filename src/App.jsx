@@ -27,8 +27,12 @@ function getFormIdFromUrl() {
   return new URLSearchParams(window.location.search).get("form");
 }
 
-function getPublicAppOrigin() {
-  return (import.meta.env.VITE_PUBLIC_APP_URL || window.location.origin).replace(/\/$/, "");
+function getPublicAppUrl() {
+  const configuredUrl = import.meta.env.VITE_PUBLIC_APP_URL;
+  if (configuredUrl) return configuredUrl.replace(/\/$/, "");
+
+  const basePath = import.meta.env.BASE_URL === "/" ? "" : import.meta.env.BASE_URL.replace(/\/$/, "");
+  return `${window.location.origin}${basePath}`;
 }
 
 export default function App() {
@@ -182,7 +186,7 @@ function AdminDashboard({ sessionId, owner, onLogout, onHome }) {
     setSelectedFormId(id);
   }
 
-  const formUrl = selectedForm ? `${getPublicAppOrigin()}${window.location.pathname}?form=${selectedForm._id}` : "";
+  const formUrl = selectedForm ? `${getPublicAppUrl()}/?form=${selectedForm._id}` : "";
   const isLocalhostQr = formUrl.includes("127.0.0.1") || formUrl.includes("localhost");
 
   return (
